@@ -15,7 +15,8 @@ Getting a developer Twitter account and curl Certification
 ```{r , eval=FALSE}
 library(twitteR)
 library(ROAuth)
-
+library(RCurl)
+download.file(url="http://curl.haxx.se/ca/cacert.pem",destfile="cacert.pem")
 ```
 Setting the Certification at Twitter
 ```{r,eval=FALSE}
