@@ -1,0 +1,94 @@
+---
+title       : Twitter Analytics - Sentiment Analysis and more
+subtitle    : Developing a shiny application
+author      : Karam
+job         : Business Intelligence
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+## Mining Twitter
+Getting a developer Twitter account and curl Certification
+```{r , eval=FALSE}
+library(twitteR)
+library(ROAuth)
+
+```
+Setting the Certification at Twitter
+```{r,eval=FALSE}
+# Set constant requestURL
+requestURL <- "https://api.twitter.com/oauth/request_token"
+# Set constant accessURL
+accessURL <- "https://api.twitter.com/oauth/access_token"
+# Set constant authURL
+authURL <- "https://api.twitter.com/oauth/authorize"
+consumerKey <- "xxxxxxxxxxxxxxx"
+consumerSecret <- "xxxxxxxxxxxx"
+```
+
+--- .class #id 
+## Mining Twitter
+
+##### Saving and using the Certification to connect to Twitter
+
+```{r,eval=FALSE}
+
+twitCred <- OAuthFactory$new(consumerKey=consumerKey,
+                             consumerSecret=consumerSecret,
+                             requestURL=requestURL,
+                             accessURL=accessURL,
+                             authURL=authURL)
+twitCred$handshake(cainfo="cacert.pem")
+registerTwitterOAuth(twitCred)
+s <- searchTwitter('#wc2014', cainfo="cacert.pem", n=5, locale = 'en', 
+                   geocode = '42.375,-71.1061111,10mi')
+s
+#[[1]]
+#[1] "UnitedPlanet: Hereâ€™s what you may have missed this past
+#weekend and what you may not have known about the FIFA World Cup.
+#http://t.co/lmRVlSWnca #WC2014"
+
+```
+
+--- .class #id 
+## Developing a shiny product
+
+### Install the `shinyapps` package using `devtools`:
+```{r,eval=FALSE}
+devtools::install_github('rstudio/shinyapps')
+library(shinyapps)
+```
+
+In this example, we have placed two Shiny source files: `ui.R` and `server.R`
+
+You can get `ui.R` and `server.R` from my github account [here](https://github.com/Karamcse/shinyapp). 
+
+### Test your Application
+```{r,eval=FALSE}
+library(shiny)
+runApp()
+
+```
+
+--- .class #id 
+## Deploy a shiny product
+### Configuring ShinyApps
+1) To use the shinyapps package, you will need to signup for a ShinyApps account.
+
+2) Configuring your account
+
+3) You will need to retrieve your token from the ShinyApps dashboard. Tokens are listed under the Tokens page found in the menu on the top right of the ShinyApps dashboard.
+
+### Deploy a shiny product
+
+```{r,eval=FALSE}
+shinyapps::setAccountInfo(name="<ACCOUNT>", token="<TOKEN>", secret="<SECRET>")
+deployApp()
+
+```
+Once the deploy finishes, your browser should automatically open up to your newly deployed application.
+
+`My application is` [here](http://karamcse.shinyapps.io/twitteranalysis/)
